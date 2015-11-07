@@ -5,16 +5,23 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var StormpathStrategy = require('passport-stormpath');
+var session = require('express-session');
+var flash = require('connect-flash');
 
 // Get all routes reference 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var index_routes = require('./routes/index');
+var auth_routes = require('./routes/auth')
 var login = require('./routes/login');
 // end set up ===============================================================
 
-
-// configuration ===============================================================
+// configuration ============================================================
 var server = express();
+var strategy = new StormpathStrategy();
+passport.use(strategy);
+passport.serializeUser(strategy.serializeUser);
+passport.deserializeUser(strategy.deserializeUser);
 
 // view engine setup
 server.set('views', path.join(__dirname, 'views'));
@@ -29,12 +36,26 @@ server.use(bodyParser.urlencoded({
 }));
 server.use(cookieParser());
 server.use(express.static(path.join(__dirname, 'public')));
-// end configuration ===============================================================
+
+server.use(session({
+    secret: process.env.EXPRESS_SECRET,
+    key: 'sid',
+    cookie: {
+        secure: false
+    },
+}));
+server.use(passport.initialize());
+server.use(passport.session());
+server.use(flash());
+
+// end configuration ===========================================================
 
 // routes ======================================================================
-server.use('/', routes);
-server.use('/users', users);
-server.use('/login', login);
+
+// Specify the routes here.
+server.use('/', auth_routes);
+server.use('/', index_routes);
+
 
 // catch 404 and forward to error handler
 server.use(function (req, res, next) {
@@ -44,7 +65,6 @@ server.use(function (req, res, next) {
 });
 
 // end routes ======================================================================
-
 
 // development error handler
 // will print stacktrace
@@ -67,6 +87,5 @@ server.use(function (err, req, res, next) {
         error: {}
     });
 });
-
 
 module.exports = server;
