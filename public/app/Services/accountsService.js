@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     'use strict';
     angular
         .module('accountServiceModule', [])
@@ -15,28 +15,22 @@
         };
         return service;
 
-
         function register(user, successFunction, errorFunction) {
-            $http.post('/api/account/Register', user).
+            alert('/api/account/register');
+            $http.post('/api/account/register', user).
             then(successFunction, errorFunction);
         }
 
         function login(user, successFunction, errorFunction) {
-            $http.post('/api/account/Login', user).
-              then(successFunction, errorFunction);
+            $http.post('/api/account/login', user).
+            then(successFunction, errorFunction);
         }
 
+        function getUser(successFunction, errorFunction) {}
 
-        function getUser(successFunction, errorFunction) {
-        }
+        function updateUser(user, successFunction, errorFunction) {}
 
-        function updateUser(user, successFunction, errorFunction) {
-        }
+        function authenicateUser(successFunction, errorFunction) {};
 
-        function authenicateUser(successFunction, errorFunction) {
-        };
-
-       
     }
 })();
-

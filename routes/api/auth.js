@@ -3,19 +3,9 @@ var router = express.Router();
 var passport = require('passport');
 var stormpath = require('stormpath');
 
-
-// Render the registration page.
-router.get('/register', function (req, res) {
-    res.render('register', {
-        title: 'Register',
-        error: req.flash('error')[0]
-    });
-});
-
-
 // Register a new user to Stormpath.
-router.post('/register', function (req, res) {
-
+router.post('/api/account/register', function (req, res) {
+    console.log(' Inside account register');
     var username = req.body.username;
     var password = req.body.password;
 
@@ -63,33 +53,17 @@ router.post('/register', function (req, res) {
 });
 
 
-// Render the login page.
-router.get('/login', function (req, res) {
-    res.render('login', {
-        title: 'Login',
-        error: req.flash('error')[0]
-    });
-});
-
-
 // Authenticate a user.
 router.post(
-    '/login',
+    '/api/account/login',
     passport.authenticate(
         'stormpath', {
-            successRedirect: '/dashboard',
+            successRedirect: '/',
             failureRedirect: '/login',
             failureFlash: 'Invalid email or password.',
         }
     )
 );
-
-
-// Logout the user, then redirect to the home page.
-router.get('/logout', function (req, res) {
-    req.logout();
-    res.redirect('/');
-});
 
 
 module.exports = router;

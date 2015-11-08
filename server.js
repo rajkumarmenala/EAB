@@ -12,8 +12,9 @@ var flash = require('connect-flash');
 
 // Get all routes reference 
 var index_routes = require('./routes/index');
-var auth_routes = require('./routes/auth')
-var login = require('./routes/login');
+var account_routes = require('./routes/account')
+var auth_routes = require('./routes/api/auth')
+
 // end set up ===============================================================
 
 // configuration ============================================================
@@ -53,8 +54,10 @@ server.use(flash());
 // routes ======================================================================
 
 // Specify the routes here.
-server.use('/', auth_routes);
+server.use('/', account_routes);
 server.use('/', index_routes);
+server.use('/', auth_routes);
+
 
 
 // catch 404 and forward to error handler
