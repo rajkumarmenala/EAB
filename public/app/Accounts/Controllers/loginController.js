@@ -50,6 +50,9 @@
             };
 
             $scope.login = function (form) {
+                //                $validationProvider.validate(form)
+                //                    .success($scope.loginFormsubmitSuccess)
+                //                    .error($scope.loginFormSubmitError);
                 $validationProvider.validate(form)
                     .success($scope.loginFormsubmitSuccess)
                     .error($scope.loginFormSubmitError);

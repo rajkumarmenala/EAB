@@ -15,19 +15,6 @@
     <link rel="stylesheet" href="lib/metisMenu/dist/metisMenu.min.css">
     <link rel="stylesheet" href="lib/angular-loading-bar/build/loading-bar.min.css">
     <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" type="text/css">
-
-    <script src="lib/jquery/dist/jquery.min.js"></script>
-    <script src="lib/angular/angular.min.js"></script>
-    <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="lib/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="lib/json3/lib/json3.min.js"></script>
-    <script src="lib/oclazyload/dist/ocLazyLoad.min.js"></script>
-    <script src="lib/angular-loading-bar/build/loading-bar.min.js"></script>
-    <script src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-    <script src="lib/metisMenu/dist/metisMenu.min.js"></script>
-    <script src="lib/Chart.js/Chart.min.js"></script>
-    <script src="scripts/app.js"></script>
-    <script src="js/sb-admin-2.js"></script>
 </head>
 
 <body ng-controller="loginController" ng-init="initializeController()">
@@ -44,10 +31,10 @@
                             <form role="form">
                                 <fieldset>
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                        <input ng-model="UserName" name="ruserNameWatch" type="text" placeholder="UserName" class="form-control" validator="required,email" valid-method="blur" />
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                        <input ng-model="Password" name="passwordWatch" type="password" placeholder="Password" class="form-control" validator="required" valid-method="blur" />
                                     </div>
 
                                     <!-- Change this to a button or input when using this as a form -->
@@ -58,7 +45,6 @@
                                             New to site?
                                             <a href="/register" class="to_register"> Create Account </a>
                                         </p>
-
                                     </div>
                                 </fieldset>
                             </form>
@@ -71,11 +57,36 @@
             </div>
         </div>
     </div>
-    <script src="app/Services/accountsService.js"></script>
-    <script src="app/Services/applicationService.js"></script>
-    <script src="app/Services/AlertsService.js"></script>
-    <script src="app/Services/interceptorService.js"></script>
-    <script src="app/Accounts/Controllers/loginController.js"></script>
+    <script src="lib/jquery/dist/jquery.min.js "></script>
+    <script src="lib/angular/angular.min.js "></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.min.js "></script>
+    <script src="lib/angular-ui-router/release/angular-ui-router.min.js "></script>
+    <script src="lib/json3/lib/json3.min.js "></script>
+    <script src="lib/oclazyload/dist/ocLazyLoad.min.js "></script>
+    <script src="lib/angular-loading-bar/build/loading-bar.min.js "></script>
+    <script src="lib/angular-bootstrap/ui-bootstrap-tpls.min.js "></script>
+    <script src="lib/metisMenu/dist/metisMenu.min.js "></script>
+    <script src="lib/Chart.js/Chart.min.js "></script>
+    <script src="app/app.js "></script>
+    <script src="js/sb-admin-2.js "></script>
+
+    <script src="lib/angular-route/angular-route.js "></script>
+    <!--   <script src="lib/angular-block-ui/dist/angular-block-ui.min.js "></script>-->
+    <script src="lib/angular-resource/angular-resource.min.js "></script>
+    <script src="lib/angular-cookies/angular-cookies.min.js "></script>
+
+    <script src="lib/angular-sanitize/angular-sanitize.js "></script>
+    <script src="lib/angular-loading-bar/build/loading-bar.js "></script>
+    <script src="lib/angular-validation/dist/angular-validation.min.js "></script>
+    <script src="lib/angular-validation/dist/angular-validation-rule.min.js "></script>
+    <!--   <script src="lib/angular-ui/build/angular-ui.min.js "></script>-->
+    <script src="lib/angular-confirm-modal/angular-confirm.js "></script>
+    <script src="lib/angular-loading-bar/build/loading-bar.js "></script>
+    <script src="app/Services/accountsService.js "></script>
+    <script src="app/Services/applicationService.js "></script>
+    <script src="app/Services/AlertsService.js "></script>
+    <script src="app/Services/interceptorService.js "></script>
+    <script src="app/Accounts/Controllers/loginController.js "></script>
 </body>
 
 </html>

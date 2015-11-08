@@ -5,10 +5,8 @@ var stormpath = require('stormpath');
 
 // Register a new user to Stormpath.
 router.post('/api/account/register', function (req, res) {
-    console.log(' Inside account register');
     var username = req.body.username;
     var password = req.body.password;
-
     // Grab user fields.
     if (!username || !password) {
         return res.render('register', {
