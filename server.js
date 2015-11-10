@@ -6,24 +6,21 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
-var StormpathStrategy = require('passport-stormpath');
-var session = require('express-session');
+var expressSession = require('express-session');
 var flash = require('connect-flash');
-
-// Get all routes reference 
-var index_routes = require('./routes/index');
-var account_routes = require('./routes/account')
-var auth_routes = require('./routes/api/auth')
+var dbConfig = require('./db.js');
+var mongoose = require('mongoose');
+mongoose.connect(dbConfig.url);
 
 // end set up ===============================================================
-
-// configuration ============================================================
 var server = express();
-var strategy = new StormpathStrategy();
-passport.use(strategy);
-passport.serializeUser(strategy.serializeUser);
-passport.deserializeUser(strategy.deserializeUser);
-
+// configuration ============================================================
+// Configuring Passport
+server.use(expressSession({
+    secret: 'mySecretKey'
+}));
+server.use(passport.initialize());
+server.use(passport.session());
 // view engine setup
 server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'ejs');
@@ -32,32 +29,34 @@ server.set('view engine', 'ejs');
 server.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 server.use(logger('dev'));
 server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({
-    extended: false
-}));
+server.use(bodyParser.urlencoded());
 server.use(cookieParser());
 server.use(express.static(path.join(__dirname, 'public')));
 
-server.use(session({
-    secret: process.env.EXPRESS_SECRET,
-    key: 'sid',
-    cookie: {
-        secure: false
-    },
-}));
+
 server.use(passport.initialize());
 server.use(passport.session());
 server.use(flash());
+
+
+// Initialize Passport
+var initPassport = require('./passport/init');
+initPassport(passport);
+
+// Get all routes reference 
+var index_routes = require('./routes/index');
+var account_routes = require('./routes/account');
+var auth_routes = require('./routes/api/auth')(passport);
+
 
 // end configuration ===========================================================
 
 // routes ======================================================================
 
 // Specify the routes here.
+server.use('/', auth_routes);
 server.use('/', account_routes);
 server.use('/', index_routes);
-server.use('/', auth_routes);
-
 
 
 // catch 404 and forward to error handler
