@@ -9,8 +9,6 @@ module.exports = function (passport) {
         },
         function (req, username, password, done) {
 
-            console.log('==============================================');
-            console.log(username);
             findOrCreateUser = function () {
                 // find a user in Mongo with provided username
                 User.findOne({
@@ -29,13 +27,12 @@ module.exports = function (passport) {
                         // if there is no user with that email
                         // create the user
                         var newUser = new User();
-
                         // set the user's local credentials
                         newUser.username = username;
                         newUser.password = createHash(password);
-                        newUser.email = req.param('email');
-                        newUser.firstName = req.param('firstName');
-                        newUser.lastName = req.param('lastName');
+                        newUser.email = username;
+                        //                        newUser.firstName = req.param('firstName');
+                        //                        newUser.lastName = req.param('lastName');
 
                         // save the user
                         newUser.save(function (err) {

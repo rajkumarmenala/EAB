@@ -107,6 +107,7 @@
             $scope.registerCompleted = function (response) {
                 $scope.failedErrorMessage = "";
                 $scope.errorMessage = "";
+
                 if ((response.status == 200) && (response.data.length == 0)) {
                     $scope.ConfirmationMessage = "Login account successfully created.";
                     $scope.showModal = true;
@@ -144,9 +145,9 @@
 
             $scope.createUserForRegister = function () {
                 var user = new Object();
-                user.Email = $scope.UserName;
-                user.Password = $scope.Password;
-                user.ConfirmPassword = $scope.ConfirmPassword;
+                user.username = $scope.UserName;
+                user.password = $scope.Password;
+                user.confirmpassword = $scope.ConfirmPassword;
                 return user;
             }
 

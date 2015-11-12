@@ -16,11 +16,13 @@
         return service;
 
         function register(user, successFunction, errorFunction) {
+            console.log(user);
             $http.post('/api/account/register', user).
             then(successFunction, errorFunction);
         }
 
         function login(user, successFunction, errorFunction) {
+
             $http.post('/api/account/login', user).
             then(successFunction, errorFunction);
         }

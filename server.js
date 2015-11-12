@@ -19,8 +19,7 @@ var server = express();
 server.use(expressSession({
     secret: 'mySecretKey'
 }));
-server.use(passport.initialize());
-server.use(passport.session());
+
 // view engine setup
 server.set('views', path.join(__dirname, 'views'));
 server.set('view engine', 'ejs');
@@ -42,7 +41,6 @@ server.use(flash());
 // Initialize Passport
 var initPassport = require('./passport/init');
 initPassport(passport);
-
 // Get all routes reference 
 var index_routes = require('./routes/index');
 var account_routes = require('./routes/account');
@@ -54,13 +52,14 @@ var auth_routes = require('./routes/api/auth')(passport);
 // routes ======================================================================
 
 // Specify the routes here.
-server.use('/', auth_routes);
 server.use('/', account_routes);
 server.use('/', index_routes);
+server.use('/', auth_routes);
 
 
 // catch 404 and forward to error handler
 server.use(function (req, res, next) {
+    console.log(err);
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -68,10 +67,13 @@ server.use(function (req, res, next) {
 
 // end routes ======================================================================
 
-// development error handler
 // will print stacktrace
+
 if (server.get('env') === 'development') {
+
     server.use(function (err, req, res, next) {
+        //console.log(res);
+        console.log(err.message);
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
