@@ -20,8 +20,6 @@ module.exports = function (passport) {
     });
 
     // Setting up Passport Strategies for Login and SignUp/Registration
-    console.log('Setting up Passport Strategies for Login ');
     login(passport);
-    console.log('Setting up Passport Strategies for  SignUp/Registration');
     signup(passport);
 }

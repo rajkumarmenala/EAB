@@ -9,11 +9,14 @@ module.exports = function (passport) {
         },
         function (req, username, password, done) {
             // check in mongo if a user with username exists or not
+            //console.log(' username ' + username);
+
             User.findOne({
                     'username': username
                 },
                 function (err, user) {
                     // In case of any error, return using the done method
+
                     if (err)
                         return done(err);
                     // Username does not exist, log the error and redirect back

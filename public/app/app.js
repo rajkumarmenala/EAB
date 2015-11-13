@@ -56,7 +56,6 @@
                 $scope.UserName = '';
                 $scope.User = {};
                 applicationService.initializeApplication($scope.initializeApplicationComplete, $scope.initializeApplicationError);
-
             }
 
             $scope.initializeApplicationComplete = function (response) {

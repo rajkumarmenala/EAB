@@ -8,7 +8,6 @@ module.exports = function (passport) {
             passReqToCallback: true // allows us to pass back the entire request to the callback
         },
         function (req, username, password, done) {
-
             findOrCreateUser = function () {
                 // find a user in Mongo with provided username
                 User.findOne({
@@ -55,5 +54,4 @@ module.exports = function (passport) {
     var createHash = function (password) {
         return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null);
     }
-
 }

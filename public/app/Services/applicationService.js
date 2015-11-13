@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     'use strict';
     angular
         .module('applicationServiceModule', [])
@@ -19,15 +19,17 @@
         return service;
 
         function getApplicationTitle() {
-            return "Easy Application Builder";
+            return "Easy Node Application Builder";
         }
 
         function initializeApplication(successFunction, errorFunction) {
             successFunction();
         };
+
         function getAuthenticated() {
             return isAuthenticated;
         };
+
         function setAuthenticated(value) {
             isAuthenticated = value
         };

@@ -53,9 +53,8 @@
                 //                $validationProvider.validate(form)
                 //                    .success($scope.loginFormsubmitSuccess)
                 //                    .error($scope.loginFormSubmitError);
-                $validationProvider.validate(form)
-                    .success($scope.loginFormsubmitSuccess)
-                    .error($scope.loginFormSubmitError);
+                var user = $scope.createLoginCredentials();
+                accountsService.login(user, $scope.loginCompleted, $scope.loginError);
             }
 
             $scope.loginFormsubmitSuccess = function () {
@@ -70,12 +69,13 @@
             $scope.loginCompleted = function (response) {
                 $scope.failedErrorMessage = "";
                 $scope.errorMessage = "";
+
                 if (response.status == 200) {
                     if (response.data === "Invalid username or password.") {
                         $scope.IsLoginFailed = false;
                         $scope.failedErrorMessage = response.data;
                     } else {
-                        $cookies.put('currentUserName', response.data.User.UserName);
+                        // $cookies.put('currentUserName', response.data.User.UserName);
                         $cookies.put('isAuthenticated', true);
                         window.location = "/";
                     }
@@ -107,7 +107,6 @@
             $scope.registerCompleted = function (response) {
                 $scope.failedErrorMessage = "";
                 $scope.errorMessage = "";
-
                 if ((response.status == 200) && (response.data.length == 0)) {
                     $scope.ConfirmationMessage = "Login account successfully created.";
                     $scope.showModal = true;
@@ -115,6 +114,9 @@
                 if (response.data.length >= 1) {
                     $scope.IsSuccess = false;
                     $scope.errorMessage = response.data[0].Description;
+                }
+                if (response.status == 200) {
+                    window.location = "/login";
                 }
 
             }
@@ -137,9 +139,9 @@
 
             $scope.createLoginCredentials = function () {
                 var user = new Object();
-                user.UserName = $scope.UserName;
-                user.Password = $scope.Password;
-                user.RememberMe = $scope.RememberMe;
+                user.username = $scope.UserName;
+                user.password = $scope.Password;
+                //user.RememberMe = $scope.RememberMe;
                 return user;
             }
 

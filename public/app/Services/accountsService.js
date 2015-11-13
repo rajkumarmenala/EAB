@@ -16,7 +16,7 @@
         return service;
 
         function register(user, successFunction, errorFunction) {
-            console.log(user);
+            //            console.log(user);
             $http.post('/api/account/register', user).
             then(successFunction, errorFunction);
         }
