@@ -17,7 +17,9 @@ var server = express();
 // configuration ============================================================
 // Configuring Passport
 server.use(expressSession({
-    secret: 'mySecretKey'
+    secret: 'mySecretKey',
+    saveUninitialized: true, // (default: true)
+    resave: true, // (default: true)
 }));
 
 // view engine setup
@@ -28,7 +30,10 @@ server.set('view engine', 'ejs');
 server.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 server.use(logger('dev'));
 server.use(bodyParser.json());
-server.use(bodyParser.urlencoded());
+server.use(bodyParser.urlencoded({
+    extended: true
+}));
+
 server.use(cookieParser());
 server.use(express.static(path.join(__dirname, 'public')));
 
